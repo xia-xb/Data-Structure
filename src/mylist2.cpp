@@ -5,7 +5,7 @@
 
 using namespace std;
 
-bool GetElem(LinkList L,int i,ElemType *e){
+/* bool GetElem(LinkList L,int i,ElemType *e){
     int j;
     LinkList p;
     p=L->Next;
@@ -84,6 +84,99 @@ bool ClearList(LinkList *L){
     }
     (*L)->Next=NULL;
     return 1;
+} */
+
+
+// ***********************************************************************************************
+
+bool GetElem(HeadNode L,int i,ElemType *e){
+    if(i>L.length || i<=0){
+        return 0;
+    }
+    else{
+        Node *p=L.Next;
+        for(int j=1;j<=i;j++){
+            if(j==1){
+                continue;
+            }
+            else{
+                p=(*p).Next;
+            }
+        }
+        *e=(*p).data;
+        return 1;
+    }
 }
 
+bool ListInsert(HeadNode &L,int i,ElemType e){
+    if(i>L.length+1 || i<=0){
+        return 0;
+    }
+    else{
+        Node *p=L.Next;
+        for(int j=1;j<=i-1;j++){
+            if(j==1){
+                continue;
+            }
+            p=(*p).Next;
+        }
+        Node *r=new(Node);
+        (*r).data=e;
+        (*r).Next=(*p).Next;
+        (*p).Next=r;
+        L.length++;
+        return 1;
+    }
+}
+
+bool ListDelete(HeadNode &L,int i,ElemType &e){
+    if(i>L.length || i<=0){
+        return 0;
+    }
+    else{
+        Node *p=L.Next;
+        for(int j=1;j<=i-1;j++){
+            if(j==1){
+                continue;
+            }
+            p=(*p).Next;
+        }
+        Node *q=(*p).Next;
+        e=(*q).data;
+        (*p).Next=(*q).Next;
+        free(q);
+        L.length--;
+        return 1;
+    }
+}
+
+void CreatListHead(HeadNode &L,int n){
+    L.length=0;
+    L.Next=NULL;
+    for(int i=1;i<=n;i++){
+        Node *p=new(Node);
+        (*p).data=i;
+        (*p).Next=L.Next;
+        L.Next=p;
+        L.length++;
+    }
+}
+
+bool ClearList(HeadNode &L){
+    if(L.length==0){
+        return 1;
+    }
+    else{
+        Node *p=L.Next;
+        while(p){
+            Node *q=(*p).Next;
+            L.Next=q;
+            free(p);
+            p=q;
+            L.length--;
+        }
+    }
+    L.Next=NULL;
+    return 1;
+}
 
