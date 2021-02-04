@@ -5,7 +5,7 @@
 
 typedef int elemType;
 
-struct list{
+struct list {
     int data[MAXSIZE];
     int length;
 };
@@ -31,6 +31,5 @@ int LocateElem(list *L, elemType &e);
 bool ListInsert(list *L, int i, elemType &e);
 bool ListDelete(list *L, int i, elemType &e);
 int ListLength(list *L); */
-
 
 #endif
