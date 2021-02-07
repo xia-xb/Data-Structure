@@ -1,93 +1,38 @@
 #include <iostream>
 
-#include "dulist.h"
+#include "sqstack.h"
 
 using namespace std;
 
 int main() {
-    Dulist list;
-    cout << "链表的长度：" << list.length << endl;
+    SqStack stack;
+    if(stack.IsEmpty()){
+        cout<<"创建成功"<<endl;
+    }
+    cout<<"栈的长度为："<<stack.length<<endl;
 
-    cout << endl << "依次插入10个元素" << endl;
-    for (int i = 1; i <= 10; i++) {
-        if (list.Insert(i, i) && i == 10) {
-            cout << "插入元素成功" << endl;
+    cout<<endl<<"依次push10个数据元素"<<endl;
+    for(int i=1;i<=10;i++){
+        if(stack.push(i)&&i==10){
+            cout<<"push成功"<<endl;
         }
     }
-    cout << "打印元素" << endl;
-    cout << "链表的长度：" << list.length << endl;
-    for (int i = 1; i <= list.length; i++) {
-        ElemType e;
-        if (list.getElem(i, e)) {
-            cout << "第" << i << "个元素为：" << e;
-        }
-        cout << endl;
-    }
+    cout<<"栈的长度为："<<stack.length<<endl;
+    cout<<"栈顶元素："<<stack.GetTop()<<endl;
 
-    cout << "在链表第5个元素位置插入20" << endl;
-    ElemType a = 20;
-    if (list.Insert(5, a)) {
-        cout << "插入元素成功" << endl;
-    } else {
-        cout << "插入元素失败" << endl;
-    }
-    cout << "打印元素" << endl;
-    cout << "链表的长度：" << list.length << endl;
-    for (int i = 1; i <= list.length; i++) {
-        ElemType e;
-        if (list.getElem(i, e)) {
-            cout << "第" << i << "个元素为：" << e;
-        }
-        cout << endl;
+    SElemType e;
+    if(stack.pop(e)){
+        cout<<"pop成功"<<endl;
+        cout<<"栈的长度为："<<stack.length<<endl;
+        cout<<"栈顶元素："<<stack.GetTop()<<endl;
     }
 
-    cout << "在链表第15个元素位置插入40" << endl;
-    a = 40;
-    if (list.Insert(15, a)) {
-        cout << "插入元素成功" << endl;
-    } else {
-        cout << "插入元素失败" << endl;
-    }
-    cout << "打印元素" << endl;
-    cout << "链表的长度：" << list.length << endl;
-    for (int i = 1; i <= list.length; i++) {
-        ElemType e;
-        if (list.getElem(i, e)) {
-            cout << "第" << i << "个元素为：" << e;
-        }
-        cout << endl;
+    stack.clear();
+     if(stack.IsEmpty()){
+        cout<<"清空成功"<<endl;
+        cout<<"栈的长度为："<<stack.length<<endl;
+        cout<<"栈顶元素："<<stack.GetTop()<<endl;
     }
 
-    cout << "删除链表中第3个元素" << endl;
-    if (list.Delete(3, a)) {
-        cout << "删除元素成功" << endl;
-    } else {
-        cout << "删除元素失败" << endl;
-    }
-    cout << "打印元素" << endl;
-    cout << "链表的长度：" << list.length << endl;
-    for (int i = 1; i <= list.length; i++) {
-        ElemType e;
-        if (list.getElem(i, e)) {
-            cout << "第" << i << "个元素为：" << e;
-        }
-        cout << endl;
-    }
-
-    cout << "删除链表中第13个元素" << endl;
-    if (list.Delete(13, a)) {
-        cout << "删除元素成功" << endl;
-    } else {
-        cout << "删除元素失败" << endl;
-    }
-    cout << "打印元素" << endl;
-    cout << "链表的长度：" << list.length << endl;
-    for (int i = 1; i <= list.length; i++) {
-        ElemType e;
-        if (list.getElem(i, e)) {
-            cout << "第" << i << "个元素为：" << e;
-        }
-        cout << endl;
-    }
     return 0;
 }
