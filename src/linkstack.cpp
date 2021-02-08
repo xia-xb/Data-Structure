@@ -19,6 +19,9 @@ bool LinkStack::push(SElemType &e) {
 }
 
 bool LinkStack::pop(SElemType &e) {
+    if (this->count == 0) {
+        return 0;
+    }
     StackNode *p = this->top;
     e = (*p).data;
     this->top = this->top->next;
