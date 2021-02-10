@@ -1,38 +1,70 @@
 #include <iostream>
 
-#include "linkstack.h"
+#include "arithmetic.h"
 
 using namespace std;
 
 int main() {
+    char c;
+    bool flag = 1;
+    // cin>>c;
     LinkStack stack;
-    if(stack.IsEmpty()){
-        cout<<"创建成功"<<endl;
-    }
-    //cout<<"栈的长度为："<<stack.length<<endl;
-
-    cout<<endl<<"依次push10个数据元素"<<endl;
-    for(int i=1;i<=10;i++){
-        if(stack.push(i)&&i==10){
-            cout<<"push成功"<<endl;
+    while (cin >> c || !stack.IsEmpty()) {
+        if (c != '+' && c != '-' && c != '*' && c != '/' && c != '(' &&
+            c != ')') {
+            int num = c - '0';
+            cout << num;
+        } else {
+            node *str = new (node);
+            InitNode(c, str);
+            if (!stack.IsEmpty()) {
+                node t = stack.GetTop();
+                if (c=='('||c==')') {
+                    flag=!flag;
+                }
+                if (flag && c == ')') {
+                    flag=!flag;
+                    while (t.data != '(') {
+                        cout << t.data;
+                        stack.pop();
+                        if (!(stack.IsEmpty())) {
+                            t = stack.GetTop();
+                        }
+                    }
+                    stack.pop();
+                } else {
+                    while (str->level < t.level) {
+                        cout << t.data;
+                        stack.pop();
+                        if (!(stack.IsEmpty())) {
+                            t = stack.GetTop();
+                        }
+                        cout<<t.data;
+                        stack.pop();
+                    }
+                    if(c==NULL && !stack.IsEmpty()){
+                        node t = stack.GetTop();
+                        while(!stack.IsEmpty()){
+                            cout<<t.data;
+                            stack.pop();
+                            t=stack.GetTop();
+                        }
+                    }
+                }
+            }
+            if (str->level && c!=')') {
+                stack.push(c);
+            }
         }
+        
+        // cout<<"hello world"<<endl;
     }
-    //cout<<"栈的长度为："<<stack.length<<endl;
-    cout<<"栈顶元素："<<stack.GetTop()<<endl;
-
-    SElemType e;
-    if(stack.pop(e)){
-        cout<<"pop成功"<<endl;
-        //cout<<"栈的长度为："<<stack.length<<endl;
-        cout<<"栈顶元素："<<stack.GetTop()<<endl;
-    }
-
-    stack.clear();
-     if(stack.IsEmpty()){
-        cout<<"清空成功"<<endl;
-       // cout<<"栈的长度为："<<stack.length<<endl;
-        cout<<"栈顶元素："<<stack.GetTop()<<endl;
-    }
-
+    /* node t = stack.GetTop();
+    while(!stack.IsEmpty()){
+        cout<<t.data;
+        stack.pop();
+        t=stack.GetTop();
+    } */
+    // /cout<<"hello world"<<endl;
     return 0;
 }
