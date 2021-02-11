@@ -30,29 +30,33 @@
 }
  */
 void InitNode(char c, node *e) {
-    e->data=c;
-    e->next=NULL;
-    switch (c) {
-    case '+':
-        e->level=1;
-        break;
-    case '-':
-        e->level=1;
-        break;
-    case '*':
-        e->level=2;
-        break;
-    case '/':
-        e->level=2;
-        break;
-    case '(':
-        e->level=1;
-        break;
-    case ')':
-        e->level=1;
-        break;
-    default:
-        break;
+    e->data = c;
+    e->next = NULL;
+    if (c - '0' >= 0 && c - '9' <= 0) {
+        e->level = 0;
+    } else {
+        switch (c) {
+        case '+':
+            e->level = 1;
+            break;
+        case '-':
+            e->level = 1;
+            break;
+        case '*':
+            e->level = 2;
+            break;
+        case '/':
+            e->level = 2;
+            break;
+        case '(':
+            e->level = 1;
+            break;
+        case ')':
+            e->level = 1;
+            break;
+        default:
+            break;
+        }
     }
 }
 
@@ -103,20 +107,19 @@ LinkStack::~LinkStack() {}
     }
 } */
 
-
-void LinkStack::push(char &c){
-    node *e=new(node);
-    InitNode(c,e);
+void LinkStack::push(char &c) {
+    node *e = new (node);
+    InitNode(c, e);
     // e->data='a';
     // e->data=c;
     // e->level=1;
-    if(!(this->IsEmpty())){
-        e->next=this->top;
-        this->top=e;
+    if (!(this->IsEmpty())) {
+        e->next = this->top;
+        this->top = e;
         this->count++;
-    }else{
-        e->next=NULL;
-        this->top=e;
+    } else {
+        e->next = NULL;
+        this->top = e;
         this->count++;
     }
 }
@@ -137,26 +140,21 @@ void LinkStack::push(char &c){
     }
 } */
 
-void LinkStack::pop(){
-    node *q=this->top;
-    this->top=(*q).next;
-    free (q);
+void LinkStack::pop() {
+    node *q = this->top;
+    this->top = (*q).next;
+    free(q);
     this->count--;
 }
 
-bool LinkStack::IsEmpty(){
-    return (this->count==0);
-}
+bool LinkStack::IsEmpty() { return (this->count == 0); }
 
 node LinkStack::GetTop() {
     node e;
-    e.data=this->top->data;
-    e.level=this->top->level;
-    e.next=this->top->next;
+    e.data = this->top->data;
+    e.level = this->top->level;
+    e.next = this->top->next;
     return e;
 }
 
-
-void translate(LinkStack stack){
-
-}
+void translate(LinkStack stack) {}
