@@ -25,10 +25,34 @@ public:
     node GetTop();
 };
 
+/* class postExpression {
+private:
+    string data;
+    postExpression *next;
+
+public:
+    postExpression();
+    ~postExpression();
+    void push(string);
+    void pop();
+    float calculation();
+    string getTop();
+}; */
+
+/* postExpression::postExpression()
+{
+}
+
+postExpression::~postExpression()
+{
+} */
+
 void translate(LinkStack);
 
 int transform(std::string, std::size_t &, char, node *);
 
 std::string conversion(std::string);
+
+float calculation(std::string);
 
 #endif

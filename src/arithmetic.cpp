@@ -77,6 +77,45 @@ node LinkStack::GetTop() {
     return e;
 }
 
+/* postExpression::postExpression() {
+    this->data = " ";
+    this->next = NULL;
+}
+
+postExpression::~postExpression() {}
+
+void postExpression::push(string s) {
+    postExpression *p = new (postExpression);
+    p->data = s;
+    p->next = this;
+    postExpression *q = this;
+    while (q->next != NULL) {
+        q = q->next;
+    }
+    p->next = q->next;
+    q->next = p;
+}
+
+void postExpression::pop() {
+    if (!(this->next == NULL)) {
+        postExpression *p = this;
+        while (p->next->next != NULL) {
+            p = p->next;
+        }
+        postExpression *q=p->next;
+        p->next=NULL;
+        free(q);
+    }
+}
+
+string postExpression::getTop(){
+   return (*this->next).data;
+}
+
+float postExpression::calculation(){
+    return 0;
+} */
+
 void translate(LinkStack stack) {}
 
 /* 对于字符串中给定起始位置开始的“数字”,转换为相应的数字 */
@@ -104,6 +143,7 @@ int transform(std::string s, size_t &i, char c, node *str) {
 /* 输入中缀表达式字符串，转换为后缀表达式字符串 */
 std::string conversion(std::string s) {
     string result;
+    // postExpression result;
     char c;
     LinkStack stack;
     size_t i = 0;
@@ -115,6 +155,7 @@ std::string conversion(std::string s) {
         if (str->level == 0) {
             int num = transform(s, i, c, str);
             result.append(to_string(num));
+            // result.push(to_string(num));
         } else {
             if (!stack.IsEmpty()) {
                 node t = stack.GetTop();
@@ -122,6 +163,7 @@ std::string conversion(std::string s) {
                 if (c == ')') {
                     while (t.data != '(') {
                         result = result + t.data;
+                        // result.push(string(1,t.data));
                         stack.pop();
                         if (!(stack.IsEmpty())) {
                             t = stack.GetTop();
@@ -133,11 +175,14 @@ std::string conversion(std::string s) {
                     /* 小于栈顶字符等级则依次出栈，直到栈顶等级与当前字符等级相同
                      */
                     while (str->level < t.level) {
+                        // result.push(string(1,t.data));
                         result = result + t.data;
                         stack.pop();
                         if (!(stack.IsEmpty())) {
                             t = stack.GetTop();
                         }
+                        // result.push(string(1,t.data));
+                        result = result + t.data;
                         stack.pop();
                     }
                 }
@@ -153,6 +198,7 @@ std::string conversion(std::string s) {
     /* 字符遍历完成，将栈中剩余字符出栈 */
     node t = stack.GetTop();
     while (!stack.IsEmpty()) {
+        // result.push(string(1,t.data));
         result = result + t.data;
         stack.pop();
         if (stack.IsEmpty()) {
@@ -161,4 +207,55 @@ std::string conversion(std::string s) {
         t = stack.GetTop();
     }
     return result;
+}
+
+float calculation(string s) {
+    float num = 0, first = 0, second = 0;
+    size_t i = 0;
+    char c = s.at(i);
+    // string c=s.getTop();
+    node *str = new (node);
+    InitNode(c, str);
+    stack<float> Stack;
+    while (i < s.length()) {
+        if (str->level == 0) {
+            int n = transform(s, i, c, str);
+            float num = float(n);
+            Stack.push(num);
+        } else {
+            switch (c) {
+            case '+':
+                first = Stack.top();
+                Stack.pop();
+                second = Stack.top();
+                num = first + second;
+                Stack.push(num);
+                break;
+            case '-':
+                first = Stack.top();
+                Stack.pop();
+                second = Stack.top();
+                num = first - second;
+                Stack.push(num);
+                break;
+            case '*':
+                first = Stack.top();
+                Stack.pop();
+                second = Stack.top();
+                num = first * second;
+                Stack.push(num);
+                break;
+            case '/':
+                first = Stack.top();
+                Stack.pop();
+                second = Stack.top();
+                num = first / second;
+                Stack.push(num);
+                break;
+            default:
+                break;
+            }
+        }
+    }
+    return Stack.top();
 }
