@@ -1,6 +1,6 @@
 #ifndef ARITHMETIC_H
 #define ARITHMETIC_H
-
+#include <string>
 struct node {
     char data;
     int level;
@@ -26,5 +26,9 @@ public:
 };
 
 void translate(LinkStack);
+
+int transform(std::string, std::size_t &, char, node *);
+
+std::string conversion(std::string);
 
 #endif
