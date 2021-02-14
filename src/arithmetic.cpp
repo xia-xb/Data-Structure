@@ -210,51 +210,44 @@ std::string conversion(std::string s) {
 }
 
 float calculation(string s) {
-    float num = 0, first = 0, second = 0;
+    float first = 0, second = 0;
     size_t i = 0;
-    char c = s.at(i);
-    // string c=s.getTop();
-    node *str = new (node);
-    InitNode(c, str);
+
     stack<float> Stack;
     while (i < s.length()) {
+        char c = s.at(i);
+        // string c=s.getTop();
+        node *str = new (node);
+        InitNode(c, str);
+        float num = 0;
         if (str->level == 0) {
-            int n = transform(s, i, c, str);
-            float num = float(n);
+            // int n = transform(s, i, c, str);
+            num = c - '0';
+            // float num = float(n);
             Stack.push(num);
+            i++;
         } else {
+            first = Stack.top();
+            Stack.pop();
+            second = Stack.top();
+            Stack.pop();
             switch (c) {
             case '+':
-                first = Stack.top();
-                Stack.pop();
-                second = Stack.top();
-                num = first + second;
-                Stack.push(num);
+                Stack.push(first + second);
                 break;
             case '-':
-                first = Stack.top();
-                Stack.pop();
-                second = Stack.top();
-                num = first - second;
-                Stack.push(num);
+                Stack.push(second - first);
                 break;
             case '*':
-                first = Stack.top();
-                Stack.pop();
-                second = Stack.top();
-                num = first * second;
-                Stack.push(num);
+                Stack.push(second * first);
                 break;
             case '/':
-                first = Stack.top();
-                Stack.pop();
-                second = Stack.top();
-                num = first / second;
-                Stack.push(num);
+                Stack.push(second / first);
                 break;
             default:
                 break;
             }
+            i++;
         }
     }
     return Stack.top();
