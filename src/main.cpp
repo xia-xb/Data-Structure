@@ -1,12 +1,12 @@
 
 #include <iostream>
 
-#include "queue1.h"
+#include "queue2.h"
 
 using namespace std;
 
 int main() {
-    SqQueue que;
+    LinkQueue que;
     if (que.IsEmpty()) {
         cout << "创建空队列成功" << endl;
         cout << "队列的长度为：" << que.length() << endl;
@@ -39,6 +39,5 @@ int main() {
     if(que.DestoryQueue()){
         cout<<"销毁队列成功"<<endl;
     }
-    cout<<"hello world"<<endl;
     return 0;
 }
