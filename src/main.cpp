@@ -1,21 +1,44 @@
-#include <math.h>
 
 #include <iostream>
-#include <list>
-#include <stack>
-#include <string>
 
-#include "arithmetic.h"
-#include "arithmetic1.h"
+#include "queue1.h"
 
 using namespace std;
 
 int main() {
-    string s;
-    // cin>>s;
-    s = "9+(3-1*3)*3+(1+10)/2";
-    cout<<s<<endl;
-    std::list<string> result= conv(s);
-    cout<<calcu(result)<<endl;    
+    SqQueue que;
+    if (que.IsEmpty()) {
+        cout << "创建空队列成功" << endl;
+        cout << "队列的长度为：" << que.length() << endl;
+    }
+
+    cout << "依次插入5个元素" << endl;
+    for (int i = 1; i <= 5; i++) {
+        if (que.QueueInsert(i) && i == 5) {
+            cout << "插入元素成功" << endl;
+            cout << "队列的长度为：" << que.length() << endl;
+        }
+    }
+    cout << "队列头元素：" << que.GetHead() << endl;
+
+    cout << "删除队列中一个元素" << endl;
+    QElemType e;
+    if (que.QueueDelete(e)) {
+        cout << "删除成功" << endl;
+        cout << "队列的长度为：" << que.length() << endl;
+    }
+    cout << "队列头元素：" << que.GetHead() << endl;
+
+    cout<<"清空队列"<<endl;
+    if(que.ClearQueue()&&que.IsEmpty()){
+        cout<<"清空成功"<<endl;
+        cout << "队列的长度为：" << que.length() << endl;
+    }
+
+    cout<<"销毁队列"<<endl;
+    if(que.DestoryQueue()){
+        cout<<"销毁队列成功"<<endl;
+    }
+    cout<<"hello world"<<endl;
     return 0;
 }
