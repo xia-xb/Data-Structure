@@ -43,7 +43,7 @@ bool LinkQueue::QueueDelete(QElemType &e){
     if(this->rear==p){
         this->rear=this->front;
     }
-    free(p);
+    delete(p);
     return 1;
 }
 
@@ -70,6 +70,6 @@ bool LinkQueue::ClearQueue(){
 bool LinkQueue::DestoryQueue(){
     if(this->ClearQueue()){}
     node *p=this->front;
-    free(p);
+    delete(p);
     return 1;
 }

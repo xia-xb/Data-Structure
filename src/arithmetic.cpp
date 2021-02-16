@@ -63,7 +63,7 @@ void LinkStack::push(char &c) {
 void LinkStack::pop() {
     node *q = this->top;
     this->top = (*q).next;
-    free(q);
+    delete(q);
     this->count--;
 }
 

@@ -45,7 +45,7 @@ bool ListDelte(Node &list, int i, ElemType &e) {
     Node *q = p->Next;
     e = q->data;
     p->Next = q->Next;
-    free(q);
+    delete(q);
     return 1;
 }
 

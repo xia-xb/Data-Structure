@@ -141,7 +141,7 @@ bool ListDelete(HeadNode &L, int i, ElemType &e) {
         Node *q = (*p).Next;
         e = (*q).data;
         (*p).Next = (*q).Next;
-        free(q);
+        delete(q);
         L.length--;
         return 1;
     }

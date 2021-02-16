@@ -25,7 +25,7 @@ bool LinkStack::pop(SElemType &e) {
     StackNode *p = this->top;
     e = (*p).data;
     this->top = this->top->next;
-    free(p);
+    delete(p);
     this->count--;
     return 1;
 }
