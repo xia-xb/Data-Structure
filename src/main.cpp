@@ -1,17 +1,14 @@
 
 #include <iostream>
 
-#include "binaryTree.h"
+#include "binThrTree.h"
 
 using namespace std;
 
 int main() {
-    BinaryTree tree('a');
+    BiThrTree tree;
     tree.create();
-    tree.PreOrderTraverse();
-    cout<<endl;
-    tree.InOrderTraverse();
-    cout<<endl;
-    tree.PostOrderTraverse();
+    tree.InThreading();
+    tree.InOrderTraverse_Thr();
     return 0;
 }
