@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-TreeNode *pre;
+TreeNode *pre=new(TreeNode);
 
 BiThrTree::BiThrTree() {}
 
@@ -26,8 +26,13 @@ void BiThrTree::create(TreeNode *&T) {
 }
 
 void BiThrTree::InThreading(TreeNode* &T) {
+    TreeNode *head=new(TreeNode);
+    head->LTag=Link;
+    head->RTag=Thred;
+    head->lchild=T;
     if (T) {
         this->InThreading(T->lchild);
+        // T->lchild=head;
         if (!T->lchild) {
             T->LTag = Thred;
             T->lchild = pre;
@@ -38,7 +43,9 @@ void BiThrTree::InThreading(TreeNode* &T) {
         }
         pre = T;
         this->InThreading(T->rchild);
+        // T->rchild=head;
     }
+    // T=head;
 }
 
 void BiThrTree::InOrderTraverse_Thr(TreeNode* &T) {
@@ -49,7 +56,7 @@ void BiThrTree::InOrderTraverse_Thr(TreeNode* &T) {
             p = p->lchild;
         }
         std::cout << p->data;
-        while (p->RTag && p->rchild != T) {
+        while (p->RTag==Thred && p->rchild != T) {
             p = p->rchild;
             std::cout << p->data;
         }
