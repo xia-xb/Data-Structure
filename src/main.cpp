@@ -8,7 +8,7 @@ using namespace std;
 int main() {
     BiThrTree tree;
     tree.create();
-    tree.InThreading();
+    tree.InThreading_head();
     tree.InOrderTraverse_Thr();
     return 0;
 }
