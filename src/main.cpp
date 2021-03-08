@@ -1,14 +1,11 @@
 
 #include <iostream>
 
-#include "binThrTree.h"
+#include "graph.h"
 
 using namespace std;
 
 int main() {
-    BiThrTree tree;
-    tree.create();
-    tree.InThreading_head();
-    tree.InOrderTraverse_Thr();
+    OrthList graph;
     return 0;
 }
