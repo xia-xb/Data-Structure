@@ -81,3 +81,23 @@ OrthList::~OrthList() {}
 AdjMulTables::AdjMulTables() {}
 
 AdjMulTables::~AdjMulTables() {}
+
+ArrayEdge::ArrayEdge() {
+    std::cout << "输入顶点数和边数\n";
+    int numVex, numEdge;
+    std::cin >> numVex >> numEdge;
+    std::cout << "输入顶点数据\n";
+    for (int i = 0; i < numVex; i++) {
+        std::cin >> this->vex[i];
+    }
+    for (int i = 0; i < numEdge; i++) {
+        std::cout << "输入边(vi,vj)的下标i,j以及权重w\n";
+        int i, j, w;
+        std::cin >> i >> j >> w;
+        this->edge[i].begin = i;
+        this->edge[i].end = j;
+        this->edge[i].weight = w;
+    }
+}
+
+ArrayEdge::~ArrayEdge() {}

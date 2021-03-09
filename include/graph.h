@@ -82,4 +82,20 @@ public:
     ~AdjMulTables();
 };
 
+/* 边集数组 */
+struct EEEEdgeNode {
+    int begin, end;
+    EdgeType weight;
+};
+
+class ArrayEdge {
+private:
+    VertexType vex[MAXVEX];
+    EEEEdgeNode edge[MAXVEX];
+
+public:
+    ArrayEdge(/* args */);
+    ~ArrayEdge();
+};
+
 #endif
