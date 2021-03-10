@@ -1,11 +1,15 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include "queue2.h"
+
 typedef char VertexType;
 typedef int EdgeType;
 #define MAXVEX 100
 #define INFINITY 65535
 
+// template <class QElemType>
+// class LinkQueue;
 /* 图邻接矩阵结构 */
 class MGraph {
 private:
@@ -19,6 +23,7 @@ public:
     MGraph();
     ~MGraph();
     void DFSTraverse();
+    void BFSTraverse();
 };
 
 /* 图邻接表结构，无向图*/
@@ -45,6 +50,7 @@ public:
     GraphAdjList();
     ~GraphAdjList();
     void DFSTraverse();
+    void BFSTraverse();
 };
 
 /* 有向图十字链表 */

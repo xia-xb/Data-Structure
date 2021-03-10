@@ -1,6 +1,9 @@
 #include "graph.h"
 
 #include <iostream>
+
+#include "queue2.h"
+
 using namespace std;
 
 /* ******************************************************************** */
@@ -52,6 +55,32 @@ void MGraph::DFSTraverse() {
     }
 }
 
+void MGraph::BFSTraverse() {
+    LinkQueue<int> Q;
+    for (int i = 0; i < this->numVertexes; i++) {
+        this->visited[i] = false;
+    }
+    for (int i = 0; i < this->numVertexes; i++) {
+        if (!this->visited[i]) {
+            // this->visited[i] = true;
+            // std::cout << this->vexs[i];
+            Q.QueueInsert(i);
+            while (!Q.IsEmpty()) {
+                this->visited[i] = true;
+                std::cout << this->vexs[i];
+                Q.QueueDelete(i);
+                for (int j = 0; j < this->numVertexes; j++) {
+                    if (this->arc[i][j] == 1 && !this->visited[j]) {
+                        // this->visited[j] = true;
+                        // std::cout << this->vexs[j];
+                        Q.QueueInsert(j);
+                    }
+                }
+            }
+        }
+    }
+}
+
 /* *************************************************************************/
 GraphAdjList::GraphAdjList() {
     std::cout << "输入顶点数和边数\n";
@@ -98,6 +127,34 @@ void GraphAdjList::DFSTraverse() {
     for (int i = 0; i < this->numVertexes; i++) {
         if (!this->visited[i]) {
             this->DFS(i);
+        }
+    }
+}
+
+void GraphAdjList::BFSTraverse() {
+    LinkQueue<int> Q;
+    for (int i = 0; i < this->numVertexes; i++) {
+        this->visited[i] = false;
+    }
+    for (int i = 0; i < this->numVertexes; i++) {
+        if (!this->visited[i]) {
+            // this->visited[i] = true;
+            // std::cout << this->adjList[i].data;
+            Q.QueueInsert(i);
+            while (!Q.IsEmpty()) {
+                this->visited[Q.GetHead()]=true;
+                std::cout<<this->adjList[Q.GetHead()].data;
+                Q.QueueDelete(i);
+                EdgeNode* e = this->adjList[i].firstedge;
+                while (e) {
+                    if (!this->visited[e->adjvex]) {
+                        // this->visited[e->adjvex] = true;
+                        // std::cout << this->adjList[e->adjvex].data;
+                        Q.QueueInsert(e->adjvex);
+                    }
+                    e = e->next;
+                }
+            }
         }
     }
 }

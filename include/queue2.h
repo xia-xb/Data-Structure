@@ -1,20 +1,21 @@
 #ifndef QUEUE2_H
 #define QUEUE2_H
+// typedef int QElemType;
 
-typedef int QElemType;
-
+template <typename QElemType = int>
 struct node {
     QElemType data;
-    node *next;
+    node<QElemType> *next;
 };
 
+template <typename QElemType = int>
 class LinkQueue {
 private:
-    node *front;
-    node *rear;
+    node<QElemType> *front;
+    node<QElemType> *rear;
 
 public:
-    LinkQueue(/* args */);
+    LinkQueue();
     ~LinkQueue();
     int length();
     bool QueueInsert(QElemType e);
@@ -25,12 +26,5 @@ public:
     bool DestoryQueue();
 };
 
-/* LinkQueue::LinkQueue()
-{
-}
-
-LinkQueue::~LinkQueue()
-{
-} */
-
+#include "E:\CPP\VSCode\Data-Structure\src\queue2.inl"
 #endif

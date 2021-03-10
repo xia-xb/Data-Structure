@@ -14,7 +14,7 @@ include_directories(${INCLUDE_DIR})
 include_directories(${SRC_DIR})
 
 # 生成可执行文件
-set(SRC ${SRC_DIR}/main.cpp ${SRC_DIR}/graph.cpp)
+set(SRC ${SRC_DIR}/main.cpp ${SRC_DIR}/queue2.inl ${SRC_DIR}/graph.cpp)
 add_executable(main ${SRC})
 
 # 设置可执行文件路径
