@@ -6,6 +6,7 @@
 using namespace std;
 
 int main() {
-    OrthList graph;
+    ArrayEdge graph;
+    graph.DFSTraverse();
     return 0;
 }

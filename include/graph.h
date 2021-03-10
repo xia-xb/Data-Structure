@@ -12,13 +12,17 @@ private:
     VertexType vexs[MAXVEX];
     EdgeType arc[MAXVEX][MAXVEX];
     int numVertexes, numEdges;
+    void DFS(int);
+    bool visited[MAXVEX];
 
 public:
     MGraph();
     ~MGraph();
+    void DFSTraverse();
 };
 
-/* 图邻接表结构 */
+/* 图邻接表结构，无向图*/
+/* 有向图实现类似，但是不同 */
 struct EdgeNode {
     int adjvex;
     // EdgeType weight;
@@ -34,10 +38,13 @@ class GraphAdjList {
 private:
     VertexNode adjList[MAXVEX];
     int numVertexes, numEdges;
+    bool visited[MAXVEX];
+    void DFS(int);
 
 public:
     GraphAdjList();
     ~GraphAdjList();
+    void DFSTraverse();
 };
 
 /* 有向图十字链表 */
@@ -55,10 +62,13 @@ class OrthList {
 private:
     VVertexNode OrthAdjList[MAXVEX];
     int numVertexes, numEdges;
+    bool visited[MAXVEX];
+    void DFS(int);
 
 public:
     OrthList();
     ~OrthList();
+    void DFSTraverse();
 };
 
 /* 无向图邻接多重表 */
@@ -76,10 +86,13 @@ class AdjMulTables {
 private:
     VVVertexNode AdjMulList[MAXVEX];
     int numVertexes, numEdges;
+    bool visited[MAXVEX];
+    void DFS(int);
 
 public:
     AdjMulTables();
     ~AdjMulTables();
+    void DFSTraverse();
 };
 
 /* 边集数组 */
@@ -90,12 +103,16 @@ struct EEEEdgeNode {
 
 class ArrayEdge {
 private:
+    int numVex, numEdge;
     VertexType vex[MAXVEX];
     EEEEdgeNode edge[MAXVEX];
+    bool visited[MAXVEX];
+    void DFS(int);
 
 public:
-    ArrayEdge(/* args */);
+    ArrayEdge();
     ~ArrayEdge();
+    void DFSTraverse();
 };
 
 #endif
