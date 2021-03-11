@@ -55,6 +55,10 @@ void MGraph::DFSTraverse() {
     }
 }
 
+/* 注意在插入队列时，就需要将对应visited置为ture */
+/* 否则会出现重复插入的问题 */
+/* 所以，在插入队列时，就置ture，并访问 */
+/* 在删除队列时置ture，访问，就会出现重复插入问题 */
 void MGraph::BFSTraverse() {
     LinkQueue<int> Q;
     for (int i = 0; i < this->numVertexes; i++) {
@@ -62,20 +66,49 @@ void MGraph::BFSTraverse() {
     }
     for (int i = 0; i < this->numVertexes; i++) {
         if (!this->visited[i]) {
-            // this->visited[i] = true;
-            // std::cout << this->vexs[i];
+            this->visited[i] = true;
+            std::cout << this->vexs[i];
             Q.QueueInsert(i);
             while (!Q.IsEmpty()) {
-                this->visited[i] = true;
-                std::cout << this->vexs[i];
                 Q.QueueDelete(i);
                 for (int j = 0; j < this->numVertexes; j++) {
                     if (this->arc[i][j] == 1 && !this->visited[j]) {
-                        // this->visited[j] = true;
-                        // std::cout << this->vexs[j];
+                        this->visited[j] = true;
+                        std::cout << this->vexs[j];
                         Q.QueueInsert(j);
                     }
                 }
+            }
+        }
+    }
+}
+
+void MGraph::Prim() {
+    int min;
+    int adjvex[MAXVEX];
+    int lowcost[MAXVEX];
+    lowcost[0] = 0;
+    adjvex[0] = 0;
+    for (int i = 1; i < this->numVertexes; i++) {
+        lowcost[i] = this->arc[0][i];
+        adjvex[i] = 0;
+    }
+    for (int i = 1; i < this->numVertexes; i++) {
+        int min = INFINITY;
+        int j = 1, k = 0;
+        while (j < this->numVertexes) {
+            if (lowcost[j] != 0 && lowcost[j] < min) {
+                min = lowcost[j];
+                k = j;
+            }
+            j++;
+        }
+        cout << "(" << adjvex[k] << "," << k << ")" << endl;
+        lowcost[k] = 0;
+        for (int i = 1; i < this->numVertexes; i++) {
+            if (lowcost[i] != 0 && this->arc[k][i] < lowcost[i]) {
+                lowcost[i] = this->arc[k][i];
+                adjvex[i] = k;
             }
         }
     }
@@ -131,6 +164,10 @@ void GraphAdjList::DFSTraverse() {
     }
 }
 
+/* 注意在插入队列时，就需要将对应visited置为ture */
+/* 否则会出现重复插入的问题 */
+/* 所以，在插入队列时，就置ture，并访问 */
+/* 在删除队列时置ture，访问，就会出现重复插入问题 */
 void GraphAdjList::BFSTraverse() {
     LinkQueue<int> Q;
     for (int i = 0; i < this->numVertexes; i++) {
@@ -138,18 +175,16 @@ void GraphAdjList::BFSTraverse() {
     }
     for (int i = 0; i < this->numVertexes; i++) {
         if (!this->visited[i]) {
-            // this->visited[i] = true;
-            // std::cout << this->adjList[i].data;
+            this->visited[i] = true;
+            std::cout << this->adjList[i].data;
             Q.QueueInsert(i);
             while (!Q.IsEmpty()) {
-                this->visited[Q.GetHead()]=true;
-                std::cout<<this->adjList[Q.GetHead()].data;
                 Q.QueueDelete(i);
                 EdgeNode* e = this->adjList[i].firstedge;
                 while (e) {
                     if (!this->visited[e->adjvex]) {
-                        // this->visited[e->adjvex] = true;
-                        // std::cout << this->adjList[e->adjvex].data;
+                        this->visited[e->adjvex] = true;
+                        std::cout << this->adjList[e->adjvex].data;
                         Q.QueueInsert(e->adjvex);
                     }
                     e = e->next;
@@ -211,6 +246,41 @@ void OrthList::DFSTraverse() {
     }
 }
 
+/* 思路类似，注意十字链表有向，需要遍历出和入 */
+void OrthList::BFSTraverse() {
+    LinkQueue<int> Q;
+    for (int i = 0; i < this->numVertexes; i++) {
+        this->visited[i] = false;
+    }
+    for (int i = 0; i < this->numVertexes; i++) {
+        if (!this->visited[i]) {
+            this->visited[i] = true;
+            std::cout << this->OrthAdjList[i].data;
+            Q.QueueInsert(i);
+            while (!Q.IsEmpty()) {
+                Q.QueueDelete(i);
+                EEdgeNode* e = this->OrthAdjList[i].firstout;
+                while (e) {
+                    if (!this->visited[e->headvex]) {
+                        this->visited[e->headvex] = true;
+                        std::cout << this->OrthAdjList[e->headvex].data;
+                        Q.QueueInsert(e->headvex);
+                    }
+                    e = e->taillink;
+                }
+                e = this->OrthAdjList[i].firstin;
+                while (e) {
+                    if (!this->visited[e->headvex]) {
+                        this->visited[e->headvex] = true;
+                        std::cout << this->OrthAdjList[e->headvex].data;
+                        Q.QueueInsert(e->headvex);
+                    }
+                    e = e->headlink;
+                }
+            }
+        }
+    }
+}
 /* ************************************************************************************************/
 AdjMulTables::AdjMulTables() {
     std::cout << "输入顶点数和边数\n";

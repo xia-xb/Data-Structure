@@ -1,15 +1,16 @@
 
 #include <iostream>
 
-#include "queue2.h"
 #include "graph.h"
+#include "queue2.h"
 
 using namespace std;
 
 int main() {
-    GraphAdjList graph;
-    graph.DFSTraverse();
-    cout<<endl;
-    graph.BFSTraverse();
+    MGraph graph;
+    // graph.DFSTraverse();
+    // cout<<endl;
+    // graph.BFSTraverse();
+    graph.Prim();
     return 0;
 }

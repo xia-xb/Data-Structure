@@ -24,6 +24,7 @@ public:
     ~MGraph();
     void DFSTraverse();
     void BFSTraverse();
+    void Prim();
 };
 
 /* 图邻接表结构，无向图*/
@@ -75,6 +76,7 @@ public:
     OrthList();
     ~OrthList();
     void DFSTraverse();
+    void BFSTraverse();
 };
 
 /* 无向图邻接多重表 */
@@ -99,6 +101,7 @@ public:
     AdjMulTables();
     ~AdjMulTables();
     void DFSTraverse();
+    void BFSTraverse();
 };
 
 /* 边集数组 */
@@ -119,6 +122,7 @@ public:
     ArrayEdge();
     ~ArrayEdge();
     void DFSTraverse();
+    void BFSTraverse();
 };
 
 #endif
