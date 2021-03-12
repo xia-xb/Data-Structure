@@ -114,6 +114,49 @@ void MGraph::Prim() {
     }
 }
 
+void MGraph::Dijkstra(int i, int e) {
+    EdgeType dist[MAXVEX];
+    bool collected[MAXVEX];
+    int path[MAXVEX];
+    for (int k = 0; k < this->numVertexes; k++) {
+        if (k == i) {
+            dist[k] = 0;
+            collected[k] = true;
+            path[k] = -1;
+        } else {
+            dist[k] = this->arc[i][k];
+            collected[k] = false;
+            path[k] = 0;
+        }
+    }
+    while (1) {
+        int min = INFINITY, v = i;
+        for (int k = 0; k < this->numVertexes; k++) {
+            if (!collected[k] && dist[k] < min) {
+                min = dist[k];
+                v = k;
+            }
+        }
+        if (v == i) {
+            break;
+        }
+        collected[v] = true;
+        for (int w = 0; w < this->numVertexes; w++) {
+            if (!(arc[v][w] == INFINITY) && !collected[w]) {
+                if (dist[v] + this->arc[v][w] < dist[w]) {
+                    dist[w] = dist[v] + this->arc[v][w];
+                    path[w] = v;
+                }
+            }
+        }
+    }
+    /* 输出路径，不需要进一步改进 */
+    int p = path[e];
+    while (p != -1) {
+        cout << p;
+        p = path[p];
+    }
+}
 /* *************************************************************************/
 GraphAdjList::GraphAdjList() {
     std::cout << "输入顶点数和边数\n";

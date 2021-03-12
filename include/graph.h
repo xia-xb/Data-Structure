@@ -6,7 +6,7 @@
 typedef char VertexType;
 typedef int EdgeType;
 #define MAXVEX 100
-#define INFINITY 65535
+#define INFINITY 100
 
 // template <class QElemType>
 // class LinkQueue;
@@ -25,6 +25,7 @@ public:
     void DFSTraverse();
     void BFSTraverse();
     void Prim();
+    void Dijkstra(int, int);
 };
 
 /* 图邻接表结构，无向图*/

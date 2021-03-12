@@ -11,6 +11,6 @@ int main() {
     // graph.DFSTraverse();
     // cout<<endl;
     // graph.BFSTraverse();
-    graph.Prim();
+    graph.Dijkstra(0,3);
     return 0;
 }
