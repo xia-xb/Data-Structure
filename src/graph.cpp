@@ -150,7 +150,7 @@ void MGraph::Dijkstra(int i, int e) {
             }
         }
     }
-    /* 输出路径，不需要进一步改进 */
+    /* 输出路径，需要进一步改进 */
     int p = path[e];
     while (p != -1) {
         cout << p;

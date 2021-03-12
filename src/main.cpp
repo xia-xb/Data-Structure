@@ -1,16 +1,18 @@
 
 #include <iostream>
 
-#include "graph.h"
-#include "queue2.h"
+#include "heap.h"
 
 using namespace std;
 
 int main() {
-    MGraph graph;
-    // graph.DFSTraverse();
-    // cout<<endl;
-    // graph.BFSTraverse();
-    graph.Dijkstra(0,3);
+    MaxHeap<int> heap;
+    heap.create(100,100);
+    for(int i=0;i<10;i++){
+        heap.Insert(i);
+    }
+    for(int i=1;i<5;i++){
+        heap.Delete();
+    }
     return 0;
 }
