@@ -15,7 +15,7 @@ int main() {
     for(int i=0;i<10;i++){
         cout<<a[i]<<endl;
     }
-    Bubble_sort(a,length);
+    Insertion_sort(a,length);
     cout<<"排序后\n";
     for(int i=0;i<10;i++){
         cout<<a[i]<<endl;

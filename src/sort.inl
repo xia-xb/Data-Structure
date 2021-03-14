@@ -25,3 +25,15 @@ void Bubble_sort(ElementType a[], int n) {
         }
     }
 }
+
+template <typename ElementType>
+void Insertion_sort(ElementType a[], int n) {
+    for (int p = 1; p <= n - 1; p++) {
+        ElementType tmp = a[p];
+        int i = p;
+        for (i = p; i > 0 && a[i - 1] > tmp; i--) {
+            a[i] = a[i - 1];
+        }
+        a[i] = tmp;
+    }
+}
