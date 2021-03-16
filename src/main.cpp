@@ -1,4 +1,3 @@
-
 #include <iostream>
 
 #include "sort.h"
@@ -13,12 +12,12 @@ int main() {
     }
     cout<<"排序前\n";
     for(int i=0;i<10;i++){
-        cout<<a[i]<<endl;
+        cout<<a[i]<<" ";
     }
-    Insertion_sort(a,length);
+    Quick_sort(a,length);
     cout<<"排序后\n";
     for(int i=0;i<10;i++){
-        cout<<a[i]<<endl;
+        cout<<a[i]<<" ";
     }
     return 0;
 }
