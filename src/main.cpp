@@ -1,23 +1,28 @@
 #include <iostream>
 
-#include "sort.h"
+#include "search.h"
 
 using namespace std;
 
 int main() {
-    int length=10;
-    int a[10];
-    for(int i=0;i<10;i++){
-        a[i]=10-i;
+    int a[11] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    BinarySortTree<int> bst;
+    bst.Create(a, 11);
+    Node<int>* p = new Node<int>;
+    if (bst.SearchBST(4, p)) {
+        cout << "查找成功" << endl;
+        cout << p->data << endl;
+    } else {
+        cout << "查找失败" << endl;
     }
-    cout<<"排序前\n";
-    for(int i=0;i<10;i++){
-        cout<<a[i]<<" ";
-    }
-    Quick_sort(a,length);
-    cout<<"排序后\n";
-    for(int i=0;i<10;i++){
-        cout<<a[i]<<" ";
+    if(bst.InsertBST(18)){
+        cout<<"插入成功"<<endl;
+    };
+    if (bst.SearchBST(18, p)) {
+        cout << "查找成功" << endl;
+        cout << p->data << endl;
+    } else {
+        cout << "查找失败" << endl;
     }
     return 0;
 }
