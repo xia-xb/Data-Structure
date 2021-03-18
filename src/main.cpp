@@ -6,23 +6,29 @@ using namespace std;
 
 int main() {
     int a[11] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    BinarySortTree<int> bst;
+    BinarySearchTree<int> bst;
     bst.Create(a, 11);
-    Node<int>* p = new Node<int>;
-    if (bst.SearchBST(4, p)) {
-        cout << "查找成功" << endl;
+    Node<int>* p = bst.Find(5);
+    if (p) {
         cout << p->data << endl;
-    } else {
-        cout << "查找失败" << endl;
     }
-    if(bst.InsertBST(18)){
-        cout<<"插入成功"<<endl;
-    };
-    if (bst.SearchBST(18, p)) {
-        cout << "查找成功" << endl;
+    if (p = bst.FindMin()) {
+        cout << p->data << endl;
+    }
+    if (p = bst.FindMax()) {
+        cout << p->data << endl;
+    }
+    bst.Insert(18);
+    p = bst.Find(18);
+    if (p) {
+        cout << p->data << endl;
+    }
+    bst.Delete(18);
+    p = bst.Find(18);
+    if (p) {
         cout << p->data << endl;
     } else {
-        cout << "查找失败" << endl;
+        cout << "未找到18" << endl;
     }
     return 0;
 }

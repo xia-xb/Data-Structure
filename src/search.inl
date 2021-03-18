@@ -47,13 +47,13 @@ int Interpolation_search(ElementType a[], int length, ElementType key) {
 }
 
 template <class ElementType>
-BinarySortTree<ElementType>::BinarySortTree() {}
+BinarySearchTree<ElementType>::BinarySearchTree() {}
 
 template <class ElementType>
-BinarySortTree<ElementType>::~BinarySortTree() {}
+BinarySearchTree<ElementType>::~BinarySearchTree() {}
 
 template <class ElementType>
-void BinarySortTree<ElementType>::Create(ElementType a[], int length) {
+void BinarySearchTree<ElementType>::Create(ElementType a[], int length) {
     if (length == 0) {
         return;
     }
@@ -89,10 +89,10 @@ void BinarySortTree<ElementType>::Create(ElementType a[], int length) {
 }
 
 template <class ElementType>
-bool BinarySortTree<ElementType>::SearchBst(Node<ElementType>* t,
-                                            ElementType key,
-                                            Node<ElementType>* parent,
-                                            Node<ElementType>* p) {
+bool BinarySearchTree<ElementType>::SearchBst(Node<ElementType>* t,
+                                              ElementType key,
+                                              Node<ElementType>* parent,
+                                              Node<ElementType>* p) {
     if (!t) {
         *p = *parent;
         return false;
@@ -107,13 +107,13 @@ bool BinarySortTree<ElementType>::SearchBst(Node<ElementType>* t,
 }
 
 template <class ElementType>
-bool BinarySortTree<ElementType>::SearchBST(ElementType key,
-                                            Node<ElementType>* p) {
+bool BinarySearchTree<ElementType>::SearchBST(ElementType key,
+                                              Node<ElementType>* p) {
     return (this->SearchBst(this->head, key, NULL, p));
 }
 
 template <class ElementType>
-bool BinarySortTree<ElementType>::InsertBST(ElementType key) {
+bool BinarySearchTree<ElementType>::InsertBST(ElementType key) {
     Node<ElementType>* p = new Node<ElementType>;
     if (!this->SearchBST(key, p)) {
         Node<ElementType>* e = new Node<ElementType>;
@@ -130,4 +130,111 @@ bool BinarySortTree<ElementType>::InsertBST(ElementType key) {
     } else {
         return false;
     }
+}
+
+template <class ElementType>
+Node<ElementType>* BinarySearchTree<ElementType>::find(ElementType key,
+                                                       Node<ElementType>* bst) {
+    if (!bst) {
+        return NULL;
+    }
+    if (key < bst->data) {
+        return this->find(key, bst->leftchild);
+    } else if (key > bst->data) {
+        return this->find(key, bst->rightchild);
+    } else {
+        return bst;
+    }
+}
+
+template <class ElementType>
+Node<ElementType>* BinarySearchTree<ElementType>::Find(ElementType key) {
+    return this->find(key, this->head);
+}
+
+template <class ElementType>
+Node<ElementType>* BinarySearchTree<ElementType>::FindMin(
+    Node<ElementType>* bst) {
+    if (bst) {
+        while (bst->leftchild) {
+            bst = bst->leftchild;
+        }
+    }
+    return bst;
+}
+
+template <class ElementType>
+Node<ElementType>* BinarySearchTree<ElementType>::FindMin() {
+    return this->FindMin(this->head);
+}
+
+template <class ElementType>
+Node<ElementType>* BinarySearchTree<ElementType>::FindMax(
+    Node<ElementType>* bst) {
+    if (bst) {
+        while (bst->rightchild) {
+            bst = bst->rightchild;
+        }
+    }
+    return bst;
+}
+
+template <class ElementType>
+Node<ElementType>* BinarySearchTree<ElementType>::FindMax() {
+    return this->FindMax(this->head);
+}
+
+template <class ElementType>
+Node<ElementType>* BinarySearchTree<ElementType>::Insert(
+    ElementType key, Node<ElementType>* bst) {
+    if (!bst) {
+        Node<ElementType>* e = new Node<ElementType>;
+        e->data = key;
+        e->leftchild = e->rightchild = NULL;
+        bst = e;
+    } else if (key < bst->data) {
+        bst->leftchild = this->Insert(key, bst->leftchild);
+    } else if (key > bst->data) {
+        bst->rightchild = this->Insert(key, bst->rightchild);
+    }
+    return bst;
+}
+
+template <class ElementType>
+void BinarySearchTree<ElementType>::Insert(ElementType key) {
+    this->head = this->Insert(key, this->head);
+}
+template <class ElementType>
+Node<ElementType>* BinarySearchTree<ElementType>::Delete(
+    ElementType key, Node<ElementType>* bst) {
+    Node<ElementType>* e;
+    if (!bst) {
+        std::cout << "该元素未找到\n";
+    } else if (key < bst->data) {
+        bst->leftchild = this->Delete(key, bst->leftchild);
+    } else if (key > bst->data) {
+        bst->rightchild = this->Delete(key, bst->rightchild);
+    } else {
+        if (bst->leftchild && bst->rightchild) {
+            e = this->FindMin(bst->rightchild);
+            bst->data = e->data;
+            bst->rightchild = this->Delete(e->data, bst->rightchild);
+        } else {
+            e = bst;
+            if (bst->leftchild) {
+                bst = bst->leftchild;
+            } else if (bst->rightchild) {
+                bst = bst->rightchild;
+            } else {
+                bst = NULL;
+            }
+            delete (e);
+        }
+    }
+    return bst;
+}
+
+template <class ElementType>
+void BinarySearchTree<ElementType>::Delete(ElementType key) {
+    this->head = this->Delete(key, this->head);
 }

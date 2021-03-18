@@ -1,15 +1,19 @@
 #ifndef SEARCHH_H
 #define SEARCHH_H
 
+/* 顺序表查找 */
 template <typename ElementType>
 int Sequential_search(ElementType a[], int length, ElementType key);
 
+/* 二分查找 */
 template <typename ElementType>
 int Binary_search(ElementType a[], int length, ElementType key);
 
+/* 插值查找 */
 template <typename ElementType>
 int Interpolation_search(ElementType a[], int length, ElementType key);
 
+/* 二叉排序搜索树 */
 template <class ElementType>
 struct Node {
     ElementType data;
@@ -18,18 +22,28 @@ struct Node {
 };
 
 template <class ElementType>
-class BinarySortTree {
+class BinarySearchTree {
 private:
     Node<ElementType>* head;
     bool SearchBst(Node<ElementType>*, ElementType, Node<ElementType>*,
                    Node<ElementType>*);
+    Node<ElementType>* find(ElementType, Node<ElementType>*);
+    Node<ElementType>* Insert(ElementType, Node<ElementType>*);
+    Node<ElementType>* Delete(ElementType, Node<ElementType>*);
+    Node<ElementType>* FindMin(Node<ElementType>*);
+    Node<ElementType>* FindMax(Node<ElementType>*);
 
 public:
-    BinarySortTree();
-    ~BinarySortTree();
-    void Create(ElementType a[], int length);
+    BinarySearchTree();
+    ~BinarySearchTree();
+    void Create(ElementType a[], int);
     bool SearchBST(ElementType, Node<ElementType>*);
     bool InsertBST(ElementType);
+    Node<ElementType>* Find(ElementType);
+    Node<ElementType>* FindMin();
+    Node<ElementType>* FindMax();
+    void Insert(ElementType);
+    void Delete(ElementType);
 };
 
 #include "../src/search.inl"
