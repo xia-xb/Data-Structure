@@ -30,5 +30,6 @@ int main() {
     } else {
         cout << "未找到18" << endl;
     }
+    std::cout << "hello" << std::endl;
     return 0;
 }

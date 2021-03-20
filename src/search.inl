@@ -268,6 +268,7 @@ int HashTable<ElementType>::Find(ElementType key) {
     return newpos;
 }
 
+
 template <class ElementType>
 void HashTable<ElementType>::Insert(ElementType key) {
     int pos = this->Find(key);

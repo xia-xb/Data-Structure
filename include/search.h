@@ -71,5 +71,6 @@ public:
     void Insert(ElementType);
 };
 
+
 #include "../src/search.inl"
 #endif
