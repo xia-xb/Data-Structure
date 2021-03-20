@@ -234,7 +234,45 @@ Node<ElementType>* BinarySearchTree<ElementType>::Delete(
     return bst;
 }
 
+int NextPrime(int i) {}
+
 template <class ElementType>
 void BinarySearchTree<ElementType>::Delete(ElementType key) {
     this->head = this->Delete(key, this->head);
+}
+
+template <class ElementType>
+void HashTable<ElementType>::InitializeTable(int Size) {
+    this->TableSize = NextPrime(Size);
+    this->TheCells = new Cell<ElementType>[this->TableSize];
+    for (int i = 0; i < this->TableSize; i++) {
+        this->TheCells[i].Info = Emety;
+    }
+}
+
+template <class ElementType>
+int HashTable<ElementType>::Find(ElementType key) {
+    int currentpos, newpos;
+    int cnum = 0;
+    currentpos = newpos = this->Hash(key);
+    while (this->TheCells[newpos].Info != Emety &&
+           this->TheCells[newpos].data != key) {
+        if (++cnum % 2) {
+            newpos = currentpos + (cnum + 1) / 2 * (cnum + 1) / 2;
+            newpos %= this->TableSize;
+        } else {
+            newpos = currentpos - (cnum) / 2 * cnum / 2;
+            newpos %= this->TableSize;
+        }
+    }
+    return newpos;
+}
+
+template <class ElementType>
+void HashTable<ElementType>::Insert(ElementType key) {
+    int pos = this->Find(key);
+    if (this->TheCells[pos] != Legitimate) {
+        this->TheCells[pos].data = Legitimate;
+        this->TheCells[pos].Info = key;
+    }
 }

@@ -46,5 +46,30 @@ public:
     void Delete(ElementType);
 };
 
+int NextPrime(int);
+
+enum status { Emety, Deleted, Legitimate };
+
+template <class ElementType>
+struct Cell {
+    ElementType data;
+    status Info;
+};
+
+template <class ElementType>
+class HashTable {
+private:
+    int TableSize;
+    Cell<ElementType>* TheCells;
+    int Hash(ElementType);
+
+public:
+    HashTable(){};
+    ~HashTable(){};
+    void InitializeTable(int);
+    int Find(ElementType);
+    void Insert(ElementType);
+};
+
 #include "../src/search.inl"
 #endif
