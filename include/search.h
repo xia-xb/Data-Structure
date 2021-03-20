@@ -1,5 +1,6 @@
 #ifndef SEARCHH_H
 #define SEARCHH_H
+#define MAXTABLESIZE 50
 
 /* 顺序表查找 */
 template <typename ElementType>
@@ -48,7 +49,7 @@ public:
 
 int NextPrime(int);
 
-enum status { Emety, Deleted, Legitimate };
+enum status { Empty, Deleted, Legitimate };
 
 template <class ElementType>
 struct Cell {
@@ -69,8 +70,32 @@ public:
     void InitializeTable(int);
     int Find(ElementType);
     void Insert(ElementType);
+    void Delete(ElementType);
+    void Output();
 };
 
+template <class ElementType>
+struct LinkNode {
+    ElementType data;
+    LinkNode<ElementType>* next;
+};
+
+template <class ElementType>
+class HashTable1 {
+private:
+    int TableSize;
+    LinkNode<ElementType>* TheLists;
+    int Hash(ElementType);
+
+public:
+    HashTable1(){};
+    ~HashTable1(){};
+    void InitializeTable(int);
+    LinkNode<ElementType>* Find(ElementType);
+    void Insert(ElementType);
+    void Delete(ElementType);
+    void Output();
+};
 
 #include "../src/search.inl"
 #endif

@@ -5,31 +5,19 @@
 using namespace std;
 
 int main() {
-    int a[11] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    BinarySearchTree<int> bst;
-    bst.Create(a, 11);
-    Node<int>* p = bst.Find(5);
-    if (p) {
-        cout << p->data << endl;
+    HashTable1<int> h;
+    h.InitializeTable(9);
+    for (int i = 0; i < 9; i++) {
+        h.Insert(i);
     }
-    if (p = bst.FindMin()) {
-        cout << p->data << endl;
-    }
-    if (p = bst.FindMax()) {
-        cout << p->data << endl;
-    }
-    bst.Insert(18);
-    p = bst.Find(18);
-    if (p) {
-        cout << p->data << endl;
-    }
-    bst.Delete(18);
-    p = bst.Find(18);
-    if (p) {
-        cout << p->data << endl;
-    } else {
-        cout << "未找到18" << endl;
-    }
-    std::cout << "hello" << std::endl;
+    h.Output();
+    h.Insert(12);
+    h.Insert(13);
+    h.Insert(23);
+    h.Insert(21);
+    h.Output();
+    h.Delete(12);
+    h.Delete(21);
+    h.Output();
     return 0;
 }

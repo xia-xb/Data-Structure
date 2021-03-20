@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include <iostream>
 
 #include "search.h"
@@ -234,11 +236,34 @@ Node<ElementType>* BinarySearchTree<ElementType>::Delete(
     return bst;
 }
 
-int NextPrime(int i) {}
-
 template <class ElementType>
 void BinarySearchTree<ElementType>::Delete(ElementType key) {
     this->head = this->Delete(key, this->head);
+}
+
+int NextPrime(int i) {
+    if (i == 1) {
+        return 2;
+    }
+    int p = i % 2 ? i + 2 : i + 1;
+    int j;
+    while (p < MAXTABLESIZE) {
+        for (j = int(sqrt(p)); j > 2; j--) {
+            if (p % j == 0) {
+                break;
+            }
+        }
+        if (j == 2) {
+            break;
+        }
+        p += 2;
+    }
+    return p;
+}
+
+template <class ElementType>
+int HashTable<ElementType>::Hash(ElementType key) {
+    return key % this->TableSize;
 }
 
 template <class ElementType>
@@ -246,7 +271,7 @@ void HashTable<ElementType>::InitializeTable(int Size) {
     this->TableSize = NextPrime(Size);
     this->TheCells = new Cell<ElementType>[this->TableSize];
     for (int i = 0; i < this->TableSize; i++) {
-        this->TheCells[i].Info = Emety;
+        this->TheCells[i].Info = Empty;
     }
 }
 
@@ -255,7 +280,7 @@ int HashTable<ElementType>::Find(ElementType key) {
     int currentpos, newpos;
     int cnum = 0;
     currentpos = newpos = this->Hash(key);
-    while (this->TheCells[newpos].Info != Emety &&
+    while (this->TheCells[newpos].Info != Empty &&
            this->TheCells[newpos].data != key) {
         if (++cnum % 2) {
             newpos = currentpos + (cnum + 1) / 2 * (cnum + 1) / 2;
@@ -268,12 +293,104 @@ int HashTable<ElementType>::Find(ElementType key) {
     return newpos;
 }
 
-
 template <class ElementType>
 void HashTable<ElementType>::Insert(ElementType key) {
     int pos = this->Find(key);
-    if (this->TheCells[pos] != Legitimate) {
-        this->TheCells[pos].data = Legitimate;
-        this->TheCells[pos].Info = key;
+    if (this->TheCells[pos].Info != Legitimate) {
+        this->TheCells[pos].data = key;
+        this->TheCells[pos].Info = Legitimate;
+    }
+}
+
+template <class ElementType>
+void HashTable<ElementType>::Delete(ElementType key) {
+    int pos = this->Find(key);
+    if (this->thisCells[pos].data == key) {
+        this->TheCells[pos].Info = Deleted;
+    }
+}
+
+template <class ElementType>
+void HashTable<ElementType>::Output() {
+    std::cout << "表的尺寸为：" << this->TableSize << std::endl;
+    for (int i = 0; i < this->TableSize && this->TheCells[i].Info == Legitimate;
+         i++) {
+        std::cout << this->TheCells[i].data << " ";
+    }
+    std::cout << "\n";
+}
+
+template <class ElementType>
+int HashTable1<ElementType>::Hash(ElementType key) {
+    return key % this->TableSize;
+}
+
+template <class ElementType>
+void HashTable1<ElementType>::InitializeTable(int Size) {
+    this->TableSize = NextPrime(Size);
+    this->TheLists = new LinkNode<ElementType>[this->TableSize];
+    for (int i = 0; i < this->TableSize; i++) {
+        this->TheLists[i].next = NULL;
+    }
+}
+
+template <class ElementType>
+LinkNode<ElementType>* HashTable1<ElementType>::Find(ElementType key) {
+    int pos = this->Hash(key);
+    LinkNode<ElementType>* p = this->TheLists[pos].next;
+    while (p && p->data != key) {
+        p = p->next;
+    }
+    return p;
+}
+
+template <class ElementType>
+void HashTable1<ElementType>::Insert(ElementType key) {
+    int pos = this->Hash(key);
+    LinkNode<ElementType>* p = &this->TheLists[pos];
+    while (p->next) {
+        if (p->next->data == key) {
+            return;
+        }
+        p = p->next;
+    }
+    if (p) {
+        LinkNode<ElementType>* e = new LinkNode<ElementType>;
+        e->data = key;
+        e->next = NULL;
+        p->next = e;
+    }
+}
+
+template <class ElementType>
+void HashTable1<ElementType>::Delete(ElementType key) {
+    int pos = this->Hash(key);
+    LinkNode<ElementType>* p = &this->TheLists[pos];
+    while (p->next) {
+        if (p->next->data == key) {
+            break;
+        }
+        p = p->next;
+    }
+    if (p->next) {
+        if (p->next->data == key) {
+            LinkNode<ElementType>* tmp = p->next;
+            p->next = tmp->next;
+            delete tmp;
+        }
+    }
+}
+
+template <class ElementType>
+void HashTable1<ElementType>::Output() {
+    std::cout << "表的尺寸为:" << this->TableSize << "\n";
+    LinkNode<ElementType>* p;
+    for (int i = 0; i < this->TableSize; i++) {
+        p = this->TheLists[i].next;
+        while (p) {
+            std::cout << p->data << " ";
+            p = p->next;
+        }
+        std::cout << "\n";
     }
 }
